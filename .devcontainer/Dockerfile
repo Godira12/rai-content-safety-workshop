@@ -13,9 +13,3 @@ RUN echo "pip install azure-cli" | bash
 #Choose your version of ml cli
 RUN echo "az extension add -n ml" | bash 
 RUN echo "pip install azure-ml --extra-index-url https://azuremlsdktestpypi.azureedge.net/sdk-cli-v2" | bash
-
-
-# This is to support updating conda environment with user supplied packages with environment.yml
-COPY environment.yml* .devcontainer/noop.txt /tmp/conda-tmp/
-RUN if [ -f "/tmp/conda-tmp/environment.yml" ]; then umask 0002 && /opt/conda/bin/mamba env create -f /tmp/conda-tmp/environment.yml; fi \
-    && rm -rf /tmp/conda-tmp
